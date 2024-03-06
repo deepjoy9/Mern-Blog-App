@@ -1,21 +1,19 @@
 import React from "react";
+import { formatISO9075 } from "date-fns";
 
-const Post = () => {
+const Post = ({ title, summary, cover, content, createdAt, author }) => {
   return (
     <div className="post">
       <div className="image">
-        <img src="https://images.unsplash.com/photo-1709589865176-7c6ede164354?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHx8" />
+        <img src={'http://localhost:4000/'+cover} alt=""/>
       </div>
       <div className="texts">
-        <h2>A view of postntain range with a lake in the foreground</h2>
+        <h2>{title}</h2>
         <p className="info">
-          <a className="author">Deepjoy Sarkar</a>
-          <time>2024-05-03 21:32</time>
+          <a className="author">{author.username}</a>
+          <time>{formatISO9075(new Date(createdAt))}</time>
         </p>
-        <p className="summary">
-          Download thpostee HD photo of lofoten, norway, road, and mountains in
-          Norway by Vidar Nordli-Mathisen (@vidarnm)
-        </p>
+        <p className="summary">{summary}</p>
       </div>
     </div>
   );
