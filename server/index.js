@@ -11,6 +11,7 @@ const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const uploadMiddleware = multer({ dest: "uploads/" });
 const fs = require("fs");
+const connectDB = require("./db/connectDB.js");
 
 const salt = bcrypt.genSaltSync(10);
 const secret = process.env.SECRET_KEY;
@@ -20,7 +21,15 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
-mongoose.connect(process.env.DB_CONNECTION);
+connectDB()
+  .then(() => {
+    app.listen(4000, () => {
+      console.log("Server is running");
+    });
+  })
+  .catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
+  });
 
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
@@ -99,5 +108,3 @@ app.get("/post", async (req, res) => {
 
   res.json(posts);
 });
-
-app.listen(4000);
