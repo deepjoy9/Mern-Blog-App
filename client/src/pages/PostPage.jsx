@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { formatISO9075 } from "date-fns";
 import { Link } from "react-router-dom";
@@ -23,7 +23,7 @@ const PostPage = () => {
       <h1>{postInfo.title}</h1>
       <time>{formatISO9075(new Date(postInfo.createdAt))}</time>
       <div className="author">by @{postInfo.author.username}</div>
-      {userInfo.id === postInfo.author._id && (
+      {userInfo && userInfo.id === postInfo.author._id && (
         <div className="edit-row">
           <Link className="edit-btn" to={`/edit/${postInfo._id}`}>
             <svg
